@@ -1,0 +1,18 @@
+webapp:
+    container_name: webapp
+    build: ./single-page-app
+    depends_on:
+      - nginx
+    volumes:
+      - webapp_files:/var/www/app/
+
+  nginx:
+    container_name: webserver
+    image: nginx:1.13.12-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NGINX_PORT=80
+    volumes:
+      - webapp_files:/var/www/app/
